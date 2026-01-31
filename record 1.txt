@@ -129,4 +129,6 @@ mysql> desc invoice_item;
 | pid      | int  | YES  | MUL | NULL    |       |
 | quantity | int  | YES  |     | NULL    |       |
 +----------+------+------+-----+---------+-------+
+
+
 3 rows in set (0.00 sec)
