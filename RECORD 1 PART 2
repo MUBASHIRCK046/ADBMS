@@ -156,3 +156,4 @@ mysql> desc student;
 | age     | int          | NO   |     | NULL    |       |
 +---------+--------------+------+-----+---------+-------+
 3 rows in set (0.00 sec)
+//
