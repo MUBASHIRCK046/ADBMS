@@ -1,0 +1,35 @@
+1. Create a procedure to find greatest of 3 numbers. 
+
+
+mysql> create procedure greatest() begin declare a,b,c int; set a=10; set b=6;
+set c=11; if (a>b and a>c) then select a as 'greatest'; elseif (b>a and b>c) then select b as 'greatest'; else select c as 'greatest'; end if; end$
+Query OK, 0 rows affected (0.17 sec)
+
+mysql> call greatest()$
++----------+
+| greatest |
++----------+
+|       11 |
++----------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+2. Create a procedure to display invoice details of a particular customer.
+
+mysql> create procedure detail(in custo_id int) 
+       ->begin
+       ->select customer.cust_id,customer.name,invoice_master.inv_id,invoice_master.inv_date,product.pname,invoice_item.quantity from customer join invoice_master on customer.cust_id=invoice_master.cust_id join invoice_item on invoice_master.inv_id=invoice_item.inv_id join product on invoice_item.pid=product.pid where customer.cust_id=custo_id; end$
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> call detail(101)$
++---------+--------+--------+------------+---------+----------+
+| cust_id | name   | inv_id | inv_date   | pname   | quantity |
++---------+--------+--------+------------+---------+----------+
+|     101 | anurak |   1001 | 2025-12-05 | oppo f5 |       10 |
++---------+--------+--------+------------+---------+----------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+

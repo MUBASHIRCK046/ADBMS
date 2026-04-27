@@ -1,0 +1,35 @@
+1.Create a function to calculate price_range(low, medium, high) of each product. If price<=5
+indicate as low, upto 50 indicate as medium, and above as high.
+
+mysql> DELIMITER $
+      ->CREATE FUNCTION price_range(p DECIMAL(10,2))  
+      ->RETURNS VARCHAR(10)
+      ->DETERMINISTIC 
+      ->BEGIN
+      ->DECLARE result VARCHAR(10);
+      ->IF p <= 50000 THEN
+      ->SET result = 'Low';
+      ->ELSEIF p <= 70000 THEN
+      ->SET result = 'Medium';
+      ->ELSE
+      ->SET result = 'High';
+      ->END IF;
+      ->RETURN result;
+      ->END $
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> select pname,price,price_ranges(price) as price_category from product;
+    -> $
++-------------+---------+----------------+
+| pname       | price   | price_category |
++-------------+---------+----------------+
+| tablet      | 7139891 | High           |
+| iphone      |  135252 | High           |
+| tablet      |   26010 | Low            |
+| smart watch |   52020 | Medium         |
+| samsung s24 |   24970 | Low            |
+| nothing cmf |   24970 | Low            |
+| oppo f5     |   10000 | Low            |
++-------------+---------+----------------+
+7 rows in set (0.00 sec)
+

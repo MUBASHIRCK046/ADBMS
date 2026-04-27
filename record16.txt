@@ -1,0 +1,78 @@
+1. Write a MongoDB query to sort customer details in ascending order of their name. 
+
+invoice> db.customer.find().sort({"name":1})
+[
+  {
+    _id: ObjectId('69b7ac87201802c17089b043'),
+    name: 'karuna',
+    address: 'ekm'
+  },
+  {
+    _id: ObjectId('69b7acbf201802c17089b045'),
+    name: 'manjusha',
+    address: 'kozhikode'
+  },
+  {
+    _id: ObjectId('69b7ac87201802c17089b042'),
+    name: 'niya',
+    address: 'tvm'
+  }
+]
+
+ 2. Write a MongoDB query to count number of customers in each city. 
+ 
+invoice> db.customer.aggregate([{$group:{_id:"$address",total_customers:{$sum:1}}}])
+[
+  { _id: 'tvm', total_customers: 1 },
+  { _id: 'kozhikode', total_customers: 1 },
+  { _id: 'ekm', total_customers: 1 }
+]
+
+ 3. Write a MongoDB query to find minimum and maximum age in each city
+ 
+ invoice> db.customer.aggregate([{$group:{_id:"$address",max_age:{$max:"$age"},min_age:{$min:"$age"}}}])
+[
+  { _id: 'ekm', max_age: 22, min_age: 22 },
+  { _id: 'tvm', max_age: 21, min_age: 21 },
+  { _id: 'kozhikode', max_age: 22, min_age: 22 }
+]
+
+ 4. Write a MongoDB query using the $match stage to retrieve all customer documents whose
+customer_name starts with the letter “S”.
+
+invoice> db.customer.aggregate([{ $match:{name: { $regex: "^k" }}}])
+[
+  {
+    _id: ObjectId('69b7ac87201802c17089b043'),
+    name: 'karuna',
+    address: 'ekm',
+    age: 22
+  }
+]
+
+
+5. Write a query using $lookup to join CUSTOMER and PRODUCT collections and display only
+customer name, product name, and price.
+
+invoice> db.customer.aggregate([{ $lookup: { from:"product",localField :"product_id",foreignField: "product_id", as:"product_info"}},{$unwind:"$product_info"},{$project:{ _id:0, name:"$name",pname:"$product_info.pname",price:"$product_info.price"}}]);
+[
+  { name: 'niya', pname: 'pen', price: 10 },
+  { name: 'niya', pname: 'pencil', price: 12 },
+  { name: 'niya', pname: 'book', price: 10 },
+  { name: 'niya', pname: 'eraser', price: 6 },
+  { name: 'niya', pname: 'stapler', price: 60 },
+  { name: 'karuna', pname: 'pen', price: 10 },
+  { name: 'karuna', pname: 'pencil', price: 12 },
+  { name: 'karuna', pname: 'book', price: 10 },
+  { name: 'karuna', pname: 'eraser', price: 6 },
+  { name: 'karuna', pname: 'stapler', price: 60 },
+  { name: 'manjusha', pname: 'pen', price: 10 },
+  { name: 'manjusha', pname: 'pencil', price: 12 },
+  { name: 'manjusha', pname: 'book', price: 10 },
+  { name: 'manjusha', pname: 'eraser', price: 6 },
+  { name: 'manjusha', pname: 'stapler', price: 60 }
+]
+
+
+
+

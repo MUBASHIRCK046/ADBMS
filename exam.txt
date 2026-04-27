@@ -1,0 +1,55 @@
+
+mysql> create procedure abc()
+    -> begin 
+    -> select*from customer;
+    -> select*from invoice_item;
+    -> end
+    -> $
+Query OK, 0 rows affected (0.15 sec)
+
+mysql> call abc()$
++---------+----------+--------------+----------+-------------+
+| cust_id | name     | address      | city     | ph_no       |
++---------+----------+--------------+----------+-------------+
+|     101 | anurak   | nirmalyam    | tvm      | 27561       |
+|     102 | jaya     | house        | tvm      | 1982        |
+|     103 | mohathis | kv house     | edappal  | 529876398   |
+|     104 | mubashir | ck para      | mlp      | 12345678910 |
+|     105 | aswani   | aswanibhavan | manaseri | 4569873     |
+|     106 | punnya   | pk house     | tvm      | 898555555   |
++---------+----------+--------------+----------+-------------+
+6 rows in set (0.00 sec)
+
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|   1007 |    7 |       10 |
+|   1002 |    2 |       20 |
+|   1001 |    7 |       10 |
+|   1002 |    7 |        1 |
+|   1008 |    2 |       12 |
++--------+------+----------+
+5 rows in set (0.02 sec)
+
+Query OK, 0 rows affected (0.02 sec)
+
+display the names of employees whose name starts with 'a'
+
+mysql> create procedure employee()
+    -> begin
+    -> select*from EMPLOYEE where name like 'a%';
+    -> end
+    -> $
+Query OK, 0 rows affected (0.17 sec)
+
+mysql> call employee()$
++-----+--------+---------------+---------+------------+
+| id  | name   | address       | city    | ph_no      |
++-----+--------+---------------+---------+------------+
+| 106 | anu    | anugraham     | tvm     | 1234567890 |
+| 107 | aswani | aswani bhavan | calicut |  123456789 |
++-----+--------+---------------+---------+------------+
+2 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+

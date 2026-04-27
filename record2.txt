@@ -1,0 +1,157 @@
+2. DML COMMANDS 
+ a) DML -INSERT 
+ 1. Insert values in EMPLOYEE table. 
+
+ans:
+mysql> use invoice
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+Database changed
+insert into EMPLOYEE(id,name,address,city,ph_no)values(102,'karuna','tholoor veedu','pta',1234567890),(103,'niya','niya nilayam','calicut',123456789),(105,'mubashir','mubashir manzil','mlp',123456789),(106,'anu','anugraham','tvm',1234567890),(107,'aswani','aswani bhavan','calicut',123456789);
+--------------
+
+Query OK, 2 rows affected (0.09 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select*from EMPLOYEE;
+--------------
+select*from EMPLOYEE
++-----+----------+-----------------+---------+------------+
+| id  | name     | address         | city    | ph_no      |
++-----+----------+-----------------+---------+------------+
+| 102 | karuna   | tholoor veedu   | pta     | 1234567890 |
+| 103 | niya     | niya nilayam    | calicut |  123456789 |
+| 105 | mubashir | mubashir manzil | mlp     |  123456789 |
+| 106 | anu      | anugraham       | tvm     | 1234567890 |
+| 107 | aswani   | aswani bhavan   | calicut |  123456789 |
++-----+----------+-----------------+---------+------------+
+5 rows in set (0.00 sec)
+
+
+mysql> use ksb
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+
+2. Insert values in STUDENT table. 
+ans:
+mysql> use ksb
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+Database changed
+
+mysql> insert into studentt(roll_no,name,age,address,gender)values(11,'anu',21,'tvm','f'),(12,'bichu',21,'pta','m'),(13,'karuna',21,'calicut','f');
+Query OK, 3 rows affected (0.12 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select*from studentt;
++---------+--------+------+---------+--------+
+| roll_no | name   | age  | address | gender |
++---------+--------+------+---------+--------+
+|      11 | anu    |   21 | tvm     | f      |
+|      12 | bichu  |   21 | pta     | m      |
+|      13 | karuna |   21 | calicut | f      |
++---------+--------+------+---------+--------+
+3 rows in set (0.00 sec)
+
+ 3. Insert values in INVOICE database. 
+ ans:
+ 
+ mysql> use invoice;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+ 2. Change the name of city ‘calicut’ to ‘kozhikode’ in the customer table. 
+mysql> update customer set city='kozhikode' where cust_id=101;
+--------------
+update customer set city='kozhikode' where cust_id=101
+--------------
+
+Query OK, 1 row affected (0.13 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from customer;
+--------------
+select*from customer
+--------------
+
++---------+----------+---------------+-----------+-------------+
+| cust_id | name     | address       | city      | ph_no       |
++---------+----------+---------------+-----------+-------------+
+|     101 | karuna   | tholoor veedu | kozhikode | NULL        |
+|     102 | karuna   | tholoor veedu | pta       | 9778479116  |
+|     103 | mohathis | kv house      | edappal   | 529876398   |
+|     104 | mubashir | ck para       | mlp       | 12345678910 |
+|     105 | aswani   | aswanibhavan  | manaseri  | 4569873     |
+|     106 | punnya   | pk house      | tvm       | 898555555   |
+|     107 | shaikka  | kk homes      | tvm       | NULL        |
+|     108 | sunny    | www           | Delhi     | NULL        |
++---------+----------+---------------+-----------+-------------+
+
+3. Update all prices with 2% of its original price. 
+ans:
+
+mysql> update product set price=price*1.02;
+Query OK, 7 rows affected, 3 warnings (0.08 sec)
+Rows matched: 7  Changed: 7  Warnings: 3
+
++-----+-------------+--------+
+| pid | pname       | price  |
++-----+-------------+--------+
+|   1 | laptop      |  41616 |
+|   2 | iphone      | 135252 |
+|   3 | tablet      |  26010 |
+|   4 | smart watch |  52020 |
+|   5 | samsung s24 |  24970 |
+|   6 | nothing cmf |  24970 |
+|   7 | oppo f5     |  13524 |
++-----+-------------+--------+
+7 rows in set (0.00 sec)
+
+
+
+
+ c) DML - DELETE 
+
+1. Delete the record of customer id ‘10001’. 
+ans:
+mysql>delete from invoice_master where inv_id=1001;
+
+Query OK, 1 row affected (0.11 sec)
+
+mysql> delete from customer where cust_id=108;
+Query OK, 1 row affected (0.15 sec)
+
+
+ mysql> select*from customer;
++---------+----------+---------------+-----------+-------------+
+| cust_id | name     | address       | city      | ph_no       |
++---------+----------+---------------+-----------+-------------+
+|     101 | karuna   | tholoor veedu | kozhikode | NULL        |
+|     102 | karuna   | tholoor veedu | pta       | 9778479116  |
+|     103 | mohathis | kv house      | edappal   | 529876398   |
+|     104 | mubashir | ck para       | mlp       | 12345678910 |
+|     105 | aswani   | aswanibhavan  | manaseri  | 4569873     |
+|     106 | punnya   | pk house      | tvm       | 898555555   |
++---------+----------+---------------+-----------+-------------+
+6 rows in set (0.00 sec)
+
+2. Delete all purchase details of items its quantity less than 2. 
+ans:
+mysql> delete from invoice_item where inv_id=1006;
+Query OK, 1 row affected (0.12 sec)
+mysql> select*from invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|   1004 |    6 |        2 |
+|   1005 |    3 |        2 |
+|   1007 |    7 |       10 |
++--------+------+----------+
+3 rows in set (0.00 sec)
+
+ 3. Delete the purchase details of product ‘pen’ in the in_id ‘101’.
+ ans:
+ 
+

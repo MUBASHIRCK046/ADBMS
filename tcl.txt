@@ -1,0 +1,153 @@
+3. TCL & DCL COMMANDS
+
+***a) TCL COMMANDS*** 
+ 1. Commit 
+ mysql> set autocommit=0;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into students(roll_no,name,age)values(10,'dhrisya',23);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.10 sec)
+mysql> select*from students;
++---------+---------+------+
+| roll_no | name    | age  |
++---------+---------+------+
+|      10 | dhrisya |   23 |
+|      11 | anu     |   21 |
+|      12 | bichu   |   23 |
+|      13 | karuna  |   21 |
+|      14 | niya    |   22 |
+|      15 | aswani  |   21 |
++---------+---------+------+
+
+2. Rollback 
+//rollback
+mysql> select*from customer;
++---------+---------+-------+
+| cust_id | address | ph_no |
++---------+---------+-------+
+|    1001 | mlp     |  1122 |
++---------+---------+-------+
+mysql> insert into customer(cust_id,address,ph_no)values(1002,'ktm',4763);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from customer;
++---------+---------+-------+
+| cust_id | address | ph_no |
++---------+---------+-------+
+|    1001 | mlp     |  1122 |
+|    1002 | ktm     |  4763 |
++---------+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> select*from customer;
++---------+---------+-------+
+| cust_id | address | ph_no |
++---------+---------+-------+
+|    1001 | mlp     |  1122 |
++---------+---------+-------+
+1 row in set (0.00 sec)
+
+3) Savepoint
+
+mysql> set autocommit=0;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into customer values(,1002'tvm',1522),(1003,'ktm',7282);
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> savepoint sp1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> update customer set address='knr' where cust_id=1002;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> savepoint sp2;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into customer values(1005,'alp',0987);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> savepoint sp3;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delete from customer where cust_id=1005;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> rollback to sp3;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> rollback to sp1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> select*from student;
++---------+---------+--------+
+| cust_id | address | ph_no  | 
++---------+---------+--------+
+|    1001 |   mlp   |  1122  |
+|    1002 |   tvm   |  1522  |       
+|    1003 |   ktm   |  7282  |       
++---------+---------+--------+
+3 rows in set (0.00 sec)
+
+**b) DCL COMMAND**
+ Create two users user1, user2 
+ 1. GRANT:   Give insert and select privilege to user 1 on customer table in the invoice database.
+
+mysql> CREATE USER 'user1'@'localhost' IDENTIFIED BY 'Pass123!';
+Query OK, 0 rows affected (0.17 sec)
+
+mysql> grant select on invoice.customer to 'user1'@'localhost';
+Query OK, 0 rows affected (0.18 sec)
+
+mysql> grant insert on invoice.customer to 'user1'@'localhost';
+Query OK, 0 rows affected (0.22 sec)
+
+mysql> show grants for 'user1'@'localhost';
++---------------------------------------------------------------------+
+| Grants for user1@localhost                                          |
++---------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `user1`@`localhost`                           |
+| GRANT SELECT, INSERT ON `invoice`.`customer` TO `user1`@`localhost` |
++---------------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+
+mysql> grant delete on invoice.customer to 'user2'@'localhost';
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> grant update on invoice.customer to 'user2'@'localhost';
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> show grants for 'user2'@'localhost';
++---------------------------------------------------------------------+
+| Grants for user2@localhost                                          |
++---------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `user2`@`localhost`                           |
+| GRANT UPDATE, DELETE ON `invoice`.`customer` TO `user2`@`localhost` |
++---------------------------------------------------------------------+
+
+ 2. REVOKE:   Remove delete privilege of user 2.
+mysql> REVOKE DELETE ON invoice.customer FROM 'user2'@'localhost';
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> SHOW GRANTS FOR 'user2'@'localhost';
++-----------------------------------------------------------------+
+| Grants for user2@localhost                                      |
++-----------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `user2`@`localhost`                       |
+| GRANT UPDATE ON `invoice`.`customer` TO `user2`@`localhost`     |
++-----------------------------------------------------------------+
+3 rows in set (0.00 sec)
+
+

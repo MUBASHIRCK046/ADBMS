@@ -1,0 +1,45 @@
+1. Write a MongoDB query to create a user “CUSTOMER1” and grant the read role in the INVOICE database. 
+invoice> db.createUser({user:"customer 1",pwd:"123",roles:[{role:"read",db:"invoice"}]})
+{ ok: 1 }
+
+2. Write a MongoDB query to create the backup for the INVOICE database. 
+mongodump --db invoice
+2026-03-24T14:58:06.765+0530	writing invoice.product to dump/invoice/product.bson
+2026-03-24T14:58:06.765+0530	writing invoice.customer to dump/invoice/customer.bson
+2026-03-24T14:58:06.810+0530	done dumping invoice.product (5 documents)
+2026-03-24T14:58:06.816+0530	done dumping invoice.customer (3 documents)
+ 
+ 3. Write a MongoDB query to restore a particular database or a collection. 
+
+ mongodump --db ksb
+2026-03-24T14:50:58.383+0530	writing ksb.customer to dump/ksb/customer.bson
+2026-03-24T14:50:58.383+0530	writing ksb.mca to dump/ksb/mca.bson
+2026-03-24T14:50:58.420+0530	done dumping ksb.mca (0 documents)
+2026-03-24T14:50:58.442+0530	done dumping ksb.customer (5 documents)
+
+
+test> use ksb
+switched to db ksb
+ksb> db.dropDatabase()
+{ ok: 1, dropped: 'ksb' }
+ksb> exit
+
+
+mongorestore --db ksb dump/ksb
+2026-03-24T14:56:21.032+0530	The --db and --collection flags are deprecated for this use-case; please use --nsInclude instead, i.e. with --nsInclude=${DATABASE}.${COLLECTION}
+2026-03-24T14:56:21.032+0530	building a list of collections to restore from dump/ksb dir
+2026-03-24T14:56:21.032+0530	don't know what to do with file "dump/ksb/prelude.json", skipping...
+2026-03-24T14:56:21.033+0530	reading metadata for ksb.customer from dump/ksb/customer.metadata.json
+2026-03-24T14:56:21.033+0530	reading metadata for ksb.mca from dump/ksb/mca.metadata.json
+2026-03-24T14:56:21.381+0530	restoring ksb.customer from dump/ksb/customer.bson
+2026-03-24T14:56:21.392+0530	finished restoring ksb.customer (5 documents, 0 failures)
+2026-03-24T14:56:21.472+0530	restoring ksb.mca from dump/ksb/mca.bson
+2026-03-24T14:56:21.482+0530	finished restoring ksb.mca (0 documents, 0 failures)
+2026-03-24T14:56:21.482+0530	no indexes to restore for collection ksb.customer
+2026-03-24T14:56:21.482+0530	no indexes to restore for collection ksb.mca
+2026-03-24T14:56:21.482+0530	5 document(s) restored successfully. 0 document(s) failed to restore.
+
+ 4. Write a MongoDB query to create an index for the collection customer using the field customer_name.
+invoice> db.customer.createIndex({customer_name:1})
+customer_name_1
+

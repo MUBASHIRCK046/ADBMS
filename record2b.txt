@@ -1,0 +1,66 @@
+ 1. Update the price of a particular product.
+ ans:
+ 
+mysql> update product set price=10000 where pid=7;
+Query OK, 1 row affected (0.11 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from product;
++-----+-------------+--------+
+| pid | pname       | price  |
++-----+-------------+--------+
+|   1 | laptop      |  41616 |
+|   2 | iphone      | 135252 |
+|   3 | tablet      |  26010 |
+|   4 | smart watch |  52020 |
+|   5 | samsung s24 |  24970 |
+|   6 | nothing cmf |  24970 |
+|   7 | oppo f5     |  10000 |
++-----+-------------+--------+
+7 rows in set (0.00 sec)
+
+2. Change the name of city ‘calicut’ to ‘kozhikode’ in the customer table.
+ans:
+mysql>update customer set city='kozhikode' where cust_id=101;
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from customer;
++---------+----------+---------------+-----------+-------------+
+| cust_id | name     | address       | city      | ph_no       |
++---------+----------+---------------+-----------+-------------+
+|     101 | karuna   | tholoor veedu | kozhikode | NULL        |
+|     102 | karuna   | tholoor veedu | pta       | 9778479116  |
+|     103 | mohathis | kv house      | edappal   | 529876398   |
+|     104 | mubashir | ck para       | mlp       | 12345678910 |
+|     105 | aswani   | aswanibhavan  | manaseri  | 4569873     |
+|     106 | punnya   | pk house      | tvm       | 898555555   |
++---------+----------+---------------+-----------+-------------+
+6 rows in set (0.00 sec)
+
+3. Update all prices with 2% of its original price. 
+ans:
+ mysql> update product set price=price*1.02;
+--------------
+Query OK, 7 rows affected, 1 warning (0.12 sec)
+Rows matched: 7  Changed: 7  Warnings: 1
+
+mysql> select*from product;
+--------------
+select*from product
+--------------
+
++-----+-------------+--------+
+| pid | pname       | price  |
++-----+-------------+--------+
+|   1 | laptop      |  40800 |
+|   2 | iphone      | 132600 |
+|   3 | tablet      |  25500 |
+|   4 | smart watch |  51000 |
+|   5 | samsung s24 |  24480 |
+|   6 | nothing cmf |  24480 |
+|   7 | oppo f5     |  13259 |
++-----+-------------+--------+
+7 rows in set (0.00 sec)
+
+

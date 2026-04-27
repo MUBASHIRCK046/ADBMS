@@ -1,0 +1,53 @@
+1. List all invoice items, avoid duplicates
+mysql> select distinct pid from invoice_item;
++------+
+| pid  |
++------+
+|    2 |
+|    7 |
++------+
+2 rows in set (0.00 sec)
+
+2. List the customer details who not live in ‘tvm’.
+mysql> select*from customer where city not in('tvm');
++---------+----------+--------------+----------+-------------+
+| cust_id | name     | address      | city     | ph_no       |
++---------+----------+--------------+----------+-------------+
+|     101 | anurak   | nirmalyam    | ksd      | 27561       |
+|     102 | jaya     | house        | knr      | 1982        |
+|     103 | mohathis | kv house     | edappal  | 529876398   |
+|     104 | mubashir | ck para      | mlp      | 12345678910 |
+|     105 | aswani   | aswanibhavan | manaseri | 4569873     |
++---------+----------+--------------+----------+-------------+
+5 rows in set (0.00 sec)
+
+3. Display the customer details sorted in ascending by city and descending by names.
+mysql> select*from customer order by city asc,name desc;
++---------+----------+--------------+----------+-------------+
+| cust_id | name     | address      | city     | ph_no       |
++---------+----------+--------------+----------+-------------+
+|     103 | mohathis | kv house     | edappal  | 529876398   |
+|     102 | jaya     | house        | knr      | 1982        |
+|     101 | anurak   | nirmalyam    | ksd      | 27561       |
+|     105 | aswani   | aswanibhavan | manaseri | 4569873     |
+|     104 | mubashir | ck para      | mlp      | 12345678910 |
+|     106 | punnya   | pk house     | tvm      | 898555555   |
++---------+----------+--------------+----------+-------------+
+6 rows in set (0.00 sec)
+
+4. Find the customer names who have ‘e’ or ‘a’ in them and at least 3 characters in length.
+mysql> select*from customer where name like'%e%' or  name like'%a%' and name like '___%';
++---------+----------+--------------+----------+-------------+
+| cust_id | name     | address      | city     | ph_no       |
++---------+----------+--------------+----------+-------------+
+|     101 | anurak   | nirmalyam    | ksd      | 27561       |
+|     102 | jaya     | house        | knr      | 1982        |
+|     103 | mohathis | kv house     | edappal  | 529876398   |
+|     104 | mubashir | ck para      | mlp      | 12345678910 |
+|     105 | aswani   | aswanibhavan | manaseri | 4569873     |
+|     106 | punnya   | pk house     | tvm      | 898555555   |
++---------+----------+--------------+----------+-------------+
+6 rows in set (0.00 sec)
+
+
+

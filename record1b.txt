@@ -1,0 +1,75 @@
+ 1.Add a column ‘SSN’ at the first position in the table EMPLOYEE 
+ Ans:
+ use ksb
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> alter table employee add SSN char first;
+Query OK, 0 rows affected (1.56 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
+
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| SSN      | char(1)     | YES  |     | NULL    |       |
+| emp_id   | int         | NO   | PRI | NULL    |       |
+| name     | varchar(20) | YES  |     | NULL    |       |
+| city     | varchar(20) | YES  |     | NULL    |       |
+| dob      | date        | YES  |     | NULL    |       |
+| adhar_no | varchar(20) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+
+2.Change the data type of the column ‘DOB’ in year the table EMPLOYEE 
+Ans:
+mysql> alter table employee modify column dob year;
+mysql> desc employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| SSN      | char(1)     | YES  |     | NULL    |       |
+| emp_id   | int         | NO   | PRI | NULL    |       |
+| name     | varchar(20) | YES  |     | NULL    |       |
+| city     | varchar(20) | YES  |     | NULL    |       |
+| dob      | year        | YES  |     | NULL    |       |
+| adhar_no | varchar(20) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+Query OK, 0 rows affected (2.54 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+3. Delete the column ‘emp_id’ the table EMPLOYEE. 
+Ans:
+mysql> alter table employee drop emp_id;
+Query OK, 0 rows affected (2.73 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+mysql> desc employee;
+Ans:+----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| SSN      | char(1)     | YES  |     | NULL    |       |
+| name     | varchar(20) | YES  |     | NULL    |       |
+| city     | varchar(20) | YES  |     | NULL    |       |
+| dob      | year        | YES  |     | NULL    |       |
+| adhar_no | varchar(20) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+
+
+ 4.Add the constraint unique for columns ‘SSN, ‘adhar_no’ the table EMPLOYEE 
+ Ans:
+ mysql> alter table employee1 add constraint c1 unique(SSN),add constraint c4 unique(adhar_no);
+mysql> desc employee;
+ +----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| SSN      | char(1)     | YES  | UNI | NULL    |       |
+| name     | varchar(20) | YES  |PRI  | NULL    |       |
+| city     | varchar(20) | YES  |     | NULL    |       |
+| dob      | year        | YES  |     | NULL    |       |
+| adhar_no | varchar(20) | YES  | UNI | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+ 5. Delete the NULL constraint of ‘age’ in the STUDENT table. 
+ Ans:
+ mysql> alter table studentt modify age int null;
+ 

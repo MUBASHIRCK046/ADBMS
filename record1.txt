@@ -1,0 +1,198 @@
+ 1.Create a table EMPLOYEE have the following fields (emp_id, name,city,dob,adhar_no) 
+ mysql>create table employee3(emp_id int primary key,name varchar(20),city varchar(20),dob date not null,gender char default'f',adhar_no int unique);
+Query OK, 0 rows affected (0.97 sec)
+
+mysql> desc employee3;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| emp_id   | int         | NO   | PRI | NULL    |       |
+| name     | varchar(20) | YES  |     | NULL    |       |
+| city     | varchar(20) | YES  |     | NULL    |       |
+| dob      | date        | NO   |     | NULL    |       |
+| gender   | char(1)     | YES  |     | f       |       |
+| adhar_no | int         | YES  | UNI | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+2. Create a table STUDENT have the fields(roll_no, name, age, address, gender)and add
+following constraints on it.
+Roll_no – Primary key
+Name – does not allow null values
+Age- must be in between (0-99), does not allow null values
+Gender- default value is ‘m’ 
+
+Ans:
+create table studentt(roll_no int primary key,name varchar(20),age int not null check (age between 0 and 99),address varchar(30),gender char default'm');
+Query OK, 0 rows affected (0.60 sec)
+
+mysql> desc studentt;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| roll_no | int         | NO   | PRI | NULL    |       |
+| name    | varchar(20) | YES  |     | NULL    |       |
+| age     | int         | NO   |     | NULL    |       |
+| address | varchar(30) | YES  |     | NULL    |       |
+| gender  | char(1)     | YES  |     | m       |       |
++---------+-------------+------+-----+---------+-------+
+3. Create a temporary table STUDENT1 of STUDENT relation
+Ans:
+create temporary table student1 select * from studentt;
+mysql> desc student1;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| roll_no | int         | NO   |     | NULL    | NULL  |
+| name    | varchar(20) | YES  |     | NULL    | NULL  |
+| age     | int         | NO   |     | NULL    | NULL  |
+| address | varchar(30) | YES  |     | NULL    | NULL  |
+| gender  | char(1)     | YES  |     | m       | NULL  |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+4. Create a duplicate table of EMPLOYEE. 
+Ans:
+mysql> create table employeedupe as select*from employee;
+Query OK, 0 rows affected (0.83 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employeedupe;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| name    | varchar(20) | YES  |     | NULL    |       |
+| salary  | int         | YES  |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
+| address | char(50)    | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+5. Create an INVOICE database and having following tables.
+Customer(id, name, address, city, ph_no)
+Product(pid, pname, price (default 0))
+Invoice_master(inv_id, cust_id(FK), inv_date)
+Invoice_item(inv_id (FK), pid(FK), quantity)
+Ans:
+mysql> create database invoice
+    -> ;
+Query OK, 1 row affected (0.17 sec)
+
+mysql> use invoice
+Database changed
+mysql> create table customer(cust_id int primary key,name varchar(20),address varchar(20),city varchar(10),ph_no int not null);
+Query OK, 0 rows affected (0.63 sec)
+
+mysql> create table product(pid int primary key,pname varchar(20),price decimal default'0');
+Query OK, 0 rows affected (0.66 sec)
+
+mysql> create table invoice_master(inv_id int primary key,cust_id int,foreign key(cust_id)references customer(cust_id),inv_date date);
+Query OK, 0 rows affected (1.22 sec)
+
+create table invoice_item(inv_id int,foreign key(inv_id)references invoice_master(inv_id),pid int,foreign key(pid)references product(pid),quantity int
+not null);
+Query OK, 0 rows affected (0.97 sec)
+ 6.Add a column ‘SSN’ at the first position in the table EMPLOYEE 
+ Ans:
+ use ksb
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> alter table employee add SSN char first;
+Query OK, 0 rows affected (1.56 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
+
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| SSN      | char(1)     | YES  |     | NULL    |       |
+| emp_id   | int         | NO   | PRI | NULL    |       |
+| name     | varchar(20) | YES  |     | NULL    |       |
+| city     | varchar(20) | YES  |     | NULL    |       |
+| dob      | date        | YES  |     | NULL    |       |
+| adhar_no | varchar(20) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+
+7.Change the data type of the column ‘DOB’ in year the table EMPLOYEE 
+Ans:
+mysql> alter table employee modify column dob year;
+mysql> desc employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| SSN      | char(1)     | YES  |     | NULL    |       |
+| emp_id   | int         | NO   | PRI | NULL    |       |
+| name     | varchar(20) | YES  |     | NULL    |       |
+| city     | varchar(20) | YES  |     | NULL    |       |
+| dob      | year        | YES  |     | NULL    |       |
+| adhar_no | varchar(20) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+Query OK, 0 rows affected (2.54 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+8. Delete the column ‘emp_id’ the table EMPLOYEE. 
+Ans:
+mysql> alter table employee drop emp_id;
+Query OK, 0 rows affected (2.73 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+mysql> desc employee;
+Ans:+----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| SSN      | char(1)     | YES  |     | NULL    |       |
+| name     | varchar(20) | YES  | PRI | NULL    |       |
+| city     | varchar(20) | YES  |     | NULL    |       |
+| dob      | year        | YES  |     | NULL    |       |
+| adhar_no | varchar(20) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+
+
+ 9.Add the constraint unique for columns ‘SSN, ‘adhar_no’ the table EMPLOYEE 
+ Ans:
+ mysql> alter table employee1 add constraint c1 unique(SSN),add constraint c4 unique(adhar_no);
+mysql> desc employee;
+ +----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| SSN      | char(1)     | YES  | UNI | NULL    |       |
+| name     | varchar(20) | YES  | PRI | NULL    |       |
+| city     | varchar(20) | YES  |     | NULL    |       |
+| dob      | year        | YES  |     | NULL    |       |
+| adhar_no | varchar(20) | YES  | UNI | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+ 10. Delete the NULL constraint of ‘age’ in the STUDENT table. 
+ Ans:
+ mysql> alter table studentt modify column age int null;
+Query OK, 0 rows affected (1.53 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc studentt;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| roll_no | int         | NO   | PRI | NULL    |       |
+| name    | varchar(20) | YES  |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
+| address | varchar(30) | YES  |     | NULL    |       |
+| gender  | char(1)     | YES  |     | m       |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+11.Change the table name EMPLOYEE as PERSON 
+mysql> alter table employee rename to person;
+Query OK, 0 rows affected (0.62 sec)
+
+mysql> desc person;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| SSN      | char(1)     | NO   | UNI | NULL    |       |
+| name     | varchar(20) | YES  | PRI | NULL    |       |
+| city     | varchar(20) | YES  |     | NULL    |       |
+| dob      | date        | NO   |     | NULL    |       |
+| adhar_no | int         | YES  | UNI | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+12.Delete the table STUDENT1.
+Ans:
+mysql>drop table student1;
+

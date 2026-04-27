@@ -1,0 +1,19 @@
+mysql> update customer set ph_no=null where cust_id=101;
+Query OK, 1 row affected (0.14 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from customer;
++---------+----------+---------------+----------+-------------+
+| cust_id | name     | address       | city     | ph_no       |
++---------+----------+---------------+----------+-------------+
+|     101 | karuna   | tholoor veedu | pta      | NULL        |
+|     102 | karuna   | tholoor veedu | pta      | 9778479116  |
+|     103 | mohathis | kv house      | edappal  | 529876398   |
+|     104 | mubashir | ck para       | mlp      | 12345678910 |
+|     105 | aswani   | aswanibhavan  | manaseri | 4569873     |
+|     106 | punnya   | pk house      | tvm      | 898555555   |
+|     107 | shaikka  | kk homes      | tvm      | 5728888888  |
+|     108 | sunny    | www           | Delhi    | NULL        |
++---------+----------+---------------+----------+-------------+
+8 rows in set (0.00 sec)
+
